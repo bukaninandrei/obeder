@@ -42,6 +42,9 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :votes, only: [:dish] do
+      put :dish, on: :member
+    end
     resources :dishes, only: [:index, :create, :update, :destroy]
     resources :menus, only: [:index, :create, :update, :destroy]
     resources :user_menus, only: [:index, :update]

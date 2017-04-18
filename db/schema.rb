@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329202145) do
+ActiveRecord::Schema.define(version: 20170401130211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "dishes", force: :cascade do |t|
-    t.string "name"
-    t.text   "description"
-    t.string "dish_type"
+    t.string  "name"
+    t.text    "description"
+    t.string  "dish_type"
+    t.integer "likes_count",    default: 0
+    t.integer "dislikes_count", default: 0
   end
 
   create_table "menu_dishes", force: :cascade do |t|
@@ -60,6 +62,18 @@ ActiveRecord::Schema.define(version: 20170329202145) do
     t.string  "password_digest"
     t.string  "role"
     t.string  "aasm_state"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.boolean  "vote_type",     default: false, null: false
+    t.string   "voteable_type",                 null: false
+    t.integer  "voteable_id",                   null: false
+    t.string   "voter_type"
+    t.integer  "voter_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["voteable_type", "voteable_id"], name: "index_votes_on_voteable_type_and_voteable_id", using: :btree
+    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id", using: :btree
   end
 
   add_foreign_key "menu_dishes", "dishes"
