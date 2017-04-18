@@ -18,4 +18,8 @@ apiWrapper.setMenu = (id, { dishes, description, neem }) => {
   return request(menuUrl, 'PUT', false, payload);
 };
 
+apiWrapper.setVote = (dishId, voteType) => {
+  const voteUrl = urljoin(baseUrl, 'votes', dishId, 'dish');
+  return request(voteUrl, 'PUT', false, { vote_type: voteType });
+};
 export default apiWrapper;
