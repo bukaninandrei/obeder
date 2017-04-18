@@ -5,6 +5,9 @@ ru:
         name: Название
         description: Описание
         dish_type: Тип блюда
+        likes_count: Лайки
+        dislikes_count: Дизлайки
+        rating: Рейтинг
       user:
         name: Фамилия Имя
         email: Email

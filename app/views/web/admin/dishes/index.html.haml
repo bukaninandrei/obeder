@@ -18,12 +18,18 @@
     %br
     %table.table.table-hover.table-condensed.table-striped
       %tr
+        %th{width: '70px'}
+          = sort_link(@q, :rating)
         %th
           = sort_link(@q, :name)
         %th{width: '100px'}
           = t('list.actions')
+
       - @dishes.each do |dish|
         %tr
+          %td{width: '70px'}
+            = dish.rating
+
           %td
             = dish.name
 

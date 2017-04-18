@@ -3,22 +3,29 @@
     <h5 class="menu-dish__header">{{typePresented}}</h5>
     <ul>
       <li v-for="dish in dishes" class="menu-dish__item">
-        <label
-          class="menu-dish__label"
-          :for="date + dish.id"
-          :title="dish.description"
-        >
-          <input
-            type="radio"
-            v-model="selectedDish"
-            :name="date + type"
-            :id="date + dish.id"
-            :value="dish.id"
+        <voter
+          :dishId="dish.id"
+          :voteType="dish.voteType"
+          :rating="dish.rating"
+        ></voter>
+        <div class="dish_item_wrapper">
+          <label
+            class="menu-dish__label"
+            :for="date + dish.id"
+            :title="dish.description"
           >
-          <span class="menu-dish__radio" />
-          <span class="menu-dish__name">{{dish.name}}</span>
-        </label>
-        <span class="menu-dish__description" v-if="dish.description">{{dish.description}}</span>
+            <input
+              type="radio"
+              v-model="selectedDish"
+              :name="date + type"
+              :id="date + dish.id"
+              :value="dish.id"
+            >
+            <span class="menu-dish__radio" />
+            <span class="menu-dish__name">{{dish.name}}</span>
+          </label>
+          <span class="menu-dish__description" v-if="dish.description">{{dish.description}}</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -27,6 +34,7 @@
 <script>
   import _ from 'lodash';
   import MenuPresenter from '../../presenters/MenuPresenter';
+  import Voter from '../Voter';
 
   function getSelectedDishId(dishes) {
     const selectedDish = _.find(dishes, { selected: true });
@@ -35,6 +43,9 @@
   }
 
   export default {
+    components: {
+      Voter,
+    },
     name: 'MenuDish',
     props: {
       date: String,
@@ -62,6 +73,12 @@
 <style scoped>
 @import "../../assets/styles/variables.css";
 
+.dish_item_wrapper {
+  position: absolute;
+  top: 28px;
+  left: 40px;
+}
+
 .menu-dish {
   width: 100%;
   margin-bottom: 15px;
@@ -72,7 +89,8 @@
 }
 
 .menu-dish__item {
-  margin-bottom: 10px;
+  margin-top: -10px;
+  position: relative;
 }
 
 .menu-dish__header {

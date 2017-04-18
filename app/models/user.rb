@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   extend Enumerize
   include AASM
+  include Voterable
 
   has_many :user_menus, dependent: :destroy
   has_many :menus, through: :user_menus
